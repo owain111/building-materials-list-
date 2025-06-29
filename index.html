@@ -1,97 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Building Materials Calculator</title>
+  <meta charset="UTF-8" />
+  <title>Basic Building Calculator</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    label {
-      display: block;
-      margin-top: 1em;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 8px;
-      margin-top: 4px;
-      font-size: 1rem;
-    }
-    .output {
-      margin-top: 20px;
-      background: #f7f7f7;
-      padding: 15px;
-      border-radius: 5px;
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
+    body { font-family: Arial, sans-serif; max-width: 400px; margin: 40px auto; padding: 0 20px; }
+    label { display: block; margin: 15px 0 5px; }
+    input { width: 100%; padding: 8px; font-size: 1rem; }
+    button { margin-top: 15px; padding: 10px; width: 100%; font-size: 1rem; }
+    #result { margin-top: 20px; font-weight: bold; }
   </style>
 </head>
 <body>
-  <h1>Building Materials Calculator</h1>
 
-  <label>
-    Length (m):
-    <input type="number" id="length" value="25" min="0" />
-  </label>
+  <h2>Basic Building Calculator</h2>
 
-  <label>
-    Width (m):
-    <input type="number" id="width" value="12" min="0" />
-  </label>
+  <label for="length">Length (m):</label>
+  <input type="number" id="length" value="25" min="0" />
 
-  <label>
-    Eaves Height (m):
-    <input type="number" id="height" value="4" min="0" />
-  </label>
+  <label for="width">Width (m):</label>
+  <input type="number" id="width" value="12" min="0" />
 
-  <label>
-    Roof Pitch (°):
-    <select id="pitch">
-      <option>5</option>
-      <option>7.5</option>
-      <option>10</option>
-      <option>12.5</option>
-      <option>15</option>
-      <option>22.5</option>
-    </select>
-  </label>
+  <label for="eaves">Eaves Height (m):</label>
+  <input type="number" id="eaves" value="4" min="0" />
+
+  <label for="pitch">Roof Pitch (degrees):</label>
+  <input type="number" id="pitch" value="15" min="0" max="45" step="0.1" />
 
   <button onclick="calculate()">Calculate</button>
 
-  <div class="output" id="result">
-    Enter values and click Calculate.
-  </div>
+  <div id="result">Enter values and click Calculate.</div>
 
   <script>
     function calculate() {
-      const L = parseFloat(document.getElementById("length").value);
-      const W = parseFloat(document.getElementById("width").value);
-      const H = parseFloat(document.getElementById("height").value);
-      const pitch = parseFloat(document.getElementById("pitch").value);
+      const length = parseFloat(document.getElementById('length').value);
+      const width = parseFloat(document.getElementById('width').value);
+      const eaves = parseFloat(document.getElementById('eaves').value);
+      const pitch = parseFloat(document.getElementById('pitch').value);
 
-      if (isNaN(L) || isNaN(W) || isNaN(H) || isNaN(pitch)) {
-        document.getElementById("result").innerHTML =
-          "Please enter valid numbers in all fields.";
+      if (isNaN(length) || isNaN(width) || isNaN(eaves) || isNaN(pitch)) {
+        document.getElementById('result').textContent = 'Please enter valid numbers in all fields.';
         return;
       }
 
-      const rise = (W / 2) * Math.tan((pitch * Math.PI) / 180);
-      const ridge = H + rise;
-      const slope = Math.sqrt((W / 2) ** 2 + rise ** 2);
-      const roofArea = slope * L * 2;
-      const wallArea = 2 * (L + W) * H;
+      const rise = (width / 2) * Math.tan(pitch * Math.PI / 180);
+      const ridgeHeight = eaves + rise;
 
-      document.getElementById("result").innerHTML = `
-        Ridge Height: ${ridge.toFixed(2)} m<br/>
-        Roof Slope Length: ${slope.toFixed(2)} m<br/>
-        Total Roof Area: ${roofArea.toFixed(2)} m²<br/>
-        Total Wall Area: ${wallArea.toFixed(2)} m²
-      `;
+      document.getElementById('result').innerHTML =
+        `Ridge Height: ${ridgeHeight.toFixed(2)} m`;
     }
   </script>
+
 </body>
 </html>
