@@ -1,55 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Basic Building Calculator</title>
-  <style>
-    body { font-family: Arial, sans-serif; max-width: 400px; margin: 40px auto; padding: 0 20px; }
-    label { display: block; margin: 15px 0 5px; }
-    input { width: 100%; padding: 8px; font-size: 1rem; }
-    button { margin-top: 15px; padding: 10px; width: 100%; font-size: 1rem; }
-    #result { margin-top: 20px; font-weight: bold; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Building Materials Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 720px;
+    margin: 30px auto;
+    padding: 0 15px;
+  }
+  h1, h2 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 6px;
+  }
+  section {
+    margin-top: 30px;
+  }
+  label {
+    display: block;
+    margin-top: 12px;
+    font-weight: bold;
+  }
+  input[type="number"], select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    font-size: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background: #f0f0f0;
+  }
+  input.qty {
+    width: 60px;
+  }
+  button {
+    margin-top: 25px;
+    padding: 12px;
+    font-size: 1.1rem;
+    width: 100%;
+    cursor: pointer;
+  }
+  .output-section {
+    margin-top: 40px;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 1rem;
+    white-space: pre-wrap;
+  }
+</style>
 </head>
 <body>
 
-  <h2>Basic Building Calculator</h2>
+<h1>Building Materials Calculator</h1>
 
-  <label for="length">Length (m):</label>
-  <input type="number" id="length" value="25" min="0" />
+<section id="dimensions">
+  <h2>1. Building Dimensions</h2>
+  <label for="length">Length (m)</label>
+  <input type="number" id="length" min="0" value="25" step="0.01" />
+  
+  <label for="width">Width (m)</label>
+  <input type="number" id="width" min="0" value="12" step="0.01" />
+  
+  <label for="eavesHeight">Eaves Height (m)</label>
+  <input type="number" id="eavesHeight" min="0" value="4" step="0.01" />
+  
+  <label for="roofPitch">Roof Pitch (degrees)</label>
+  <input type="number" id="roofPitch" min="0" max="45" value="15" step="0.1" />
+</section>
 
-  <label for="width">Width (m):</label>
-  <input type="number" id="width" value="12" min="0" />
+<section id="cladding">
+  <h2>2. Cladding Selection</h2>
+  <label for="wallCladding">Wall Cladding</label>
+  <select id="wallCladding">
+    <option value="N/A">N/A</option>
+    <option value="Box Profile">Box Profile</option>
+    <option value="Corrugated">Corrugated</option>
+    <option value="Composite">Composite</option>
+    <option value="Fiber Cement">Fiber Cement</option>
+    <option value="Timber">Timber</option>
+    <option value="GRP">GRP</option>
+  </select>
+  
+  <label for="roofCladding">Roof Cladding</label>
+  <select id="roofCladding">
+    <option value="N/A">N/A</option>
+    <option value="Box Profile">Box Profile</option>
+    <option value="Corrugated">Corrugated</option>
+    <option value="Composite">Composite</option>
+    <option value="Fiber Cement">Fiber Cement</option>
+    <option value="Timber">Timber</option>
+    <option value="GRP">GRP</option>
+  </select>
+  
+  <label for="gableCladding">Gable Cladding</label>
+  <select id="gableCladding">
+    <option value="N/A">N/A</option>
+    <option value="Box Profile">Box Profile</option>
+    <option value="Corrugated">Corrugated</option>
+    <option value="Composite">Composite</option>
+    <option value="Fiber Cement">Fiber Cement</option>
+    <option value="Timber">Timber</option>
+    <option value="GRP">GRP</option>
+  </select>
+  
+  <label for="leanToCladding">Lean-to Cladding</label>
+  <select id="leanToCladding">
+    <option value="N/A">N/A</option>
+    <option value="Box Profile">Box Profile</option>
+    <option value="Corrugated">Corrugated</option>
+    <option value="Composite">Composite</option>
+    <option value="Fiber Cement">Fiber Cement</option>
+    <option value="Timber">Timber</option>
+    <option value="GRP">GRP</option>
+  </select>
+</section>
 
-  <label for="eaves">Eaves Height (m):</label>
-  <input type="number" id="eaves" value="4" min="0" />
+<section id="flashings">
+  <h2>3. Flashings & Accessories</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity (auto-calculated)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Standard Flashings</td>
+        <td><input type="number" class="qty" id="standardFlashings" min="0" value="0"></td>
+      </tr>
+      <tr>
+        <td>Stop Ends</td>
+        <td><input type="number" class="qty" id="stopEnds" min="0" value="0"></td>
+      </tr>
+      <tr>
+        <td>Internal Corners</td>
+        <td><input type="number" class="qty" id="internalCorners" min="0" value="0"></td>
+      </tr>
+      <tr>
+        <td>External Corners</td>
+        <td><input type="number" class="qty" id="externalCorners" min="0" value="0"></td>
+      </tr>
+      <tr>
+        <td>Parabolts M16</td>
+        <td><input type="number" class="qty" id="parabolts" min="0" value="0"></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
 
-  <label for="pitch">Roof Pitch (degrees):</label>
-  <input type="number" id="pitch" value="15" min="0" max="45" step="0.1" />
+<section id="guttering">
+  <h2>4. Guttering & Downpipes</h2>
+  <label for="gutterLength">Gutter Length (m)</label>
+  <input type="number" id="gutterLength" min="0" value="10" step="0.01" />
+  
+  <label for="downpipes">Number of Downpipes</label>
+  <input type="number" id="downpipes" min="0" value="1" />
+  
+  <label for="joints">Number of Joints</label>
+  <input type="number" id="joints" min="0" value="3" />
+  
+  <label for="stopEndsGutter">Number of Stop Ends</label>
+  <input type="number" id="stopEndsGutter" min="0" value="1" />
+  
+  <label for="brackets">Number of Brackets</label>
+  <input type="number" id="brackets" min="0" value="10" />
+  
+  <label for="downpipeClips">Number of Downpipe Clips (plastic)</label>
+  <input type="number" id="downpipeClips" min="0" value="2" />
+</section>
 
-  <button onclick="calculate()">Calculate</button>
+<button id="calculateBtn">Calculate</button>
 
-  <div id="result">Enter values and click Calculate.</div>
+<section id="summary">
+  <h2>5. Material Summary & Checklist</h2>
+  <pre class="output-section" id="summaryOutput">Press Calculate to see summary here.</pre>
+</section>
 
-  <script>
-    function calculate() {
-      const length = parseFloat(document.getElementById('length').value);
-      const width = parseFloat(document.getElementById('width').value);
-      const eaves = parseFloat(document.getElementById('eaves').value);
-      const pitch = parseFloat(document.getElementById('pitch').value);
+<script>
+  function autoCalculateFlashings(dimensions, cladding) {
+    const { length, width, eavesHeight } = dimensions;
+    // Basic logic example for quantities
+    // Increase these formulas based on your exact rules
 
-      if (isNaN(length) || isNaN(width) || isNaN(eaves) || isNaN(pitch)) {
-        document.getElementById('result').textContent = 'Please enter valid numbers in all fields.';
-        return;
-      }
+    // For instance, parabolts related to perimeter
+    const perimeter = 2 * (length + width);
+    const parabolts = Math.round(perimeter / 1.5); // 1 parabolt every 1.5m
 
-      const rise = (width / 2) * Math.tan(pitch * Math.PI / 180);
-      const ridgeHeight = eaves + rise;
+    // Flashings related to wall cladding only if not N/A
+    const wallCladdingSelected = cladding.wall !== "N/A";
+    const standardFlashings = wallCladdingSelected ? Math.round(perimeter / 3) : 0;
 
-      document.getElementById('result').innerHTML =
-        `Ridge Height: ${ridgeHeight.toFixed(2)} m`;
-    }
-  </script>
+    // Other flashings just simple example fixed numbers
+    return {
+      parabolts,
+      standardFlashings,
+      stopEnds: 4,
+      internalCorners: 2,
+      externalCorners: 2
+    };
+  }
+
+  function calculate() {
+    // Gather inputs
+    const length = parseFloat(document.getElementById('length').value) || 0;
+    const width = parseFloat(document.getElementById('width').value) || 0;
+    const eavesHeight = parseFloat(document.getElementById('eavesHeight').value) || 0;
+    const roofPitch = parseFloat(document.getElementById('roofPitch').value) || 0;
+
+    const cladding = {
+      wall: document.getElementById('wallCladding').value,
+      roof: document.getElementById('roofCladding').value,
+      gable: document.getElementById('gableCladding').value,
+      leanTo: document.getElementById('leanToCladding').value
+    };
+
+    // Calculations
+    const rise = (width / 2) * Math.tan(roofPitch * Math.PI / 180);
+    const ridgeHeight = eavesHeight + rise;
+    const slope = Math.sqrt((width / 2) ** 2 + rise ** 2);
+    const roofArea = slope * length * 2;
+    const wallArea = 2 * (length + width) * eavesHeight;
+
+    // Auto-calc flashings
+    const flashings = autoCalculateFlashings(
+      { length, width, eavesHeight },
+      cladding
+    );
+
+    // Fill flashings inputs
+    document.getElementById('parabolts').value = flashings.parabolts;
+    document.getElementById('standardFlashings').value = flashings.standardFlashings;
+    document.getElementById('stopEnds').value = flashings.stopEnds;
+    document.getElementById('internalCorners').value = flashings.internalCorners;
+    document.getElementById('externalCorners').value = flashings.externalCorners;
+
+    // Material summary text
+    const summaryText = `
+Building Dimensions:
+  Length: ${length.toFixed(2)} m
+  Width: ${width.toFixed(2)} m
+  Eaves Height: ${eavesHeight.toFixed(2)} m
+  Roof Pitch: ${roofPitch.toFixed(2)}°
+
+Cladding:
+  Wall: ${cladding.wall}
+  Roof: ${cladding.roof}
+  Gable: ${cladding.gable}
+  Lean-to: ${cladding.leanTo}
+
+Calculated:
+  Ridge Height: ${ridgeHeight.toFixed(2)} m
+  Roof Slope Length: ${slope.toFixed(2)} m
+  Roof Area: ${roofArea.toFixed(2)} m²
+  Wall Area: ${wallArea.toFixed(2)} m²
+
+Flashings & Accessories (editable):
+  Standard Flashings: ${flashings.standardFlashings}
+  Stop Ends: ${flashings.stopEnds}
+  Internal Corners: ${flashings.internalCorners}
+  External Corners: ${flashings.externalCorners}
+  Parabolts M16: ${flashings.parabolts}
+
+Guttering & Downpipes (editable):
+  Gutter Length: ${document.getElementById('gutterLength').value} m
+  Downpipes: ${document.getElementById('downpipes').value}
+  Joints: ${document.getElementById('joints').value}
+  Stop Ends: ${document.getElementById('stopEndsGutter').value}
+  Brackets: ${document.getElementById('brackets').value}
+  Downpipe Clips: ${document.getElementById('downpipeClips').value}
+`;
+
+    document.getElementById('summaryOutput').textContent = summaryText;
+  }
+
+  document.getElementById('calculateBtn').addEventListener('click', calculate);
+</script>
 
 </body>
 </html>
